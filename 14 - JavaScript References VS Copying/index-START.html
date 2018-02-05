@@ -8,15 +8,32 @@
 
   <script>
     // start with strings, numbers and booleans
+    // 如果改变原先字符串的值, 布尔和数字, 后来的变量不会一起更新.
+    let age = 100
+    let age2 = age;
+    console.log(age, age2);
+    age = 200
+    console.log(age, age2)
+
+    let name = 'wes'
+    let name2 = name
+    console.log(name.name2);
+    name = 'wesley'
+    console.log(name, name2);
 
     // Let's say we have an array
     const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
 
     // and we want to make a copy of it.
+    const team = players;
 
     // You might think we can just do something like this:
+    team[3] = 'Lux'
+    // 这里的 team 不是新数组, 而是一个引用
+    console.log(players, team);
 
     // however what happens when we update that array?
+
 
     // now here is the problem!
 
@@ -25,14 +42,23 @@
     // Why? It's because that is an array reference, not an array copy. They both point to the same array!
 
     // So, how do we fix this? We take a copy instead!
+    // 如果我们想复制一份数组
 
     // one way
+    const team2 = players.slice()
 
     // or create a new array and concat the old one in
+    const team3 = [].concat(players)
 
     // or use the new ES6 Spread
+    const team4 = [...players]
+    team[3] = 'heee hawww'
+    console.log(team4)
+
+    const team5 = Array.from(players)
 
     // now when we update it, the original one isn't changed
+
 
     // The same thing goes for objects, let's say we have a person object
 
@@ -43,13 +69,43 @@
     };
 
     // and think we make a copy:
+    const captain = person;
+    captain.number = 99;
 
     // how do we take a copy instead?
+    // 浅拷贝一个新对象
+    const cap2 = Object.assign({}, person, { number: 99 })
+    console.log(cap2)
+
+    const cap3 = { ...person }
+    console.log(cap3)
 
     // We will hopefully soon see the object ...spread
 
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
 
+    const anran = {
+      name: "anran",
+      age: 100,
+      social: {
+        weibo: '@anran758',
+        facebokk: 'null'
+      }
+    }
+
+    console.clear()
+    console.log(anran);
+
+    const dev = Object.assign({}, anran)
+    dev.social.weibo = '@anran123'
+
+    console.log('是的, 属性的确已经修改了:', dev.social)
+    console.log('但是 anran 这个变量内的对象也跟着发生了变化:', anran.social)
+
+    // Object.assign 只是一个浅拷贝， 如果需要深拷贝则需要我们自己去定义一个函数.
+    // 来对每个层级进行拷贝.
+    // 这个还是思考一下, 要看使用的场景
+    const dev2 = JSON.parse(JSON.stringify(wes))
   </script>
 
 </body>
