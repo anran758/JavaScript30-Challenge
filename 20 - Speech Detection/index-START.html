@@ -33,6 +33,7 @@
         words.appendChild(p)
       }
 
+      // 检测是否有关键的语句, 然后去做一些其他事~
       if (transcript.includes('open the window')) {
         console.log('ok, opened the window')
       }
@@ -40,7 +41,6 @@
     })
 
     recognition.addEventListener('end', recognition.start)
-
     recognition.start()
 
   </script>
